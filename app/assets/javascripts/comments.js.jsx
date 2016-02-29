@@ -25,7 +25,7 @@ var Comment = React.createClass({
         <span dangerouslySetInnerHTML={this.rawMarkup()} />
       </div>
     );
-  }
+}
 });
 
 var CommentBox = React.createClass({
@@ -54,7 +54,7 @@ var CommentBox = React.createClass({
       url: this.props.url,
       dataType: 'json',
       type: 'POST',
-      data: comment,
+      data: {comment: comment},
       success: function(data) {
         this.setState({data: data});
       }.bind(this),
@@ -90,12 +90,12 @@ var CommentList = React.createClass({
           {comment.text}
         </Comment>
       );
-    });
-    return (
-      <div className="commentList">
-        {commentNodes}
-      </div>
-    );
+});
+return (
+  <div className="commentList">
+    {commentNodes}
+  </div>
+);
   }
 });
 
@@ -147,9 +147,13 @@ var CommentForm = React.createClass({
 
 
 $(function() {
-  ReactDOM.render(
-    <CommentBox url="comments.json" pollInterval={2000} />,
-    document.getElementById('content')
-  );
+  var $content = $("#content");
+
+  if ($content.length > 0) {
+    ReactDOM.render(
+      <CommentBox url="comments.json" pollInterval={2000} />,
+        document.getElementById('content')
+    );
+  }
 })
 
