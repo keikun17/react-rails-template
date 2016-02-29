@@ -146,7 +146,7 @@ var CommentForm = React.createClass({
 // );
 
 
-$(function() {
+$(document).on("page:change", function(){
   var $content = $("#content");
 
   if ($content.length > 0) {
